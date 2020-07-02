@@ -1,7 +1,7 @@
 from tkinter import Entry, Button, Label, Tk, filedialog, END
 from convert import file_paths, convert_list
 
-class MyFirstGUI:
+class ConvGUI:
     def __init__(self, master):
         self.master = master
         master.title("Audio converter")
@@ -47,5 +47,5 @@ class MyFirstGUI:
 
 
 root = Tk()
-my_gui = MyFirstGUI(root)
+my_gui = ConvGUI(root)
 root.mainloop()
