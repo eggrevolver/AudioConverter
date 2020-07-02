@@ -37,13 +37,13 @@ def file_paths(path):
         return paths
 
 
-def convert_list(paths):
-    if exists(args.output_dir):
-        raise FileExistsError(f'Directory {args.output_dir} already exists!')
+def convert_list(paths, base_dir, out_dir, bitrate):
+    if exists(out_dir):
+        raise FileExistsError(f'Directory {out_dir} already exists!')
 
     if paths is not None and len(paths) > 0:
         for path in paths:
-            new_file_path = args.output_dir + sep + path[len(args.base_dir):]
+            new_file_path = out_dir + sep + path[len(base_dir):]
             new_file_path, extension = splitext(new_file_path)
 
             if extension not in AUDIO_FILE_EXT_ALIASES:
@@ -53,8 +53,9 @@ def convert_list(paths):
 
             makedirs(dirname(new_file_path), exist_ok=True)
             file = AudioSegment.from_file(path, format=extension[1:])
-            file.export(new_file_path, format='mp3', bitrate=args.bitrate)
+            file.export(new_file_path, format='mp3', bitrate=bitrate)
 
-paths = file_paths(args.base_dir)
-convert_list(paths)
+if __name__ == '__main__':
+    paths = file_paths(args.base_dir)
+    convert_list(paths, args.base_dir, args.output_dir, args.bitrate)
 
